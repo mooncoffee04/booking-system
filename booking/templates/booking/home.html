@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            color: #e0e0e0;
+        }
+        
+        h4 {
+            font-size: 18px;
+            color: #e0e0e0;
+            margin: 10px 0;
+        }
+        
+        hr {
+            margin: 20px auto;
+            width: 80%;
+            border: none;
+            height: 2px;
+            background-color: #3498db; /* Customize the color */
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Hospital Appointment Booking System!</h1>
+    <hr>
+    <h4><a href="{% url 'register' %}">Register</a> if you're a new user.</h4>
+    <h4><a href="{% url 'login' %}">Login</a> if you already have an account.</h4>
+</body>
+</html>

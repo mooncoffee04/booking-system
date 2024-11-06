@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment</title>
+</head>
+<body>
+    <h1>Book an Appointment</h1>
+
+    <!-- Display success or error messages -->
+    <div>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="appointment-container">
+        <!-- Left side: Booking form -->
+        <div class="booking-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Book Appointment</button>
+            </form>
+        </div>
+
+        <!-- Right side: Doctor availability table -->
+        <div class="availability-table">
+            <h2>Doctor Availability</h2>
+            <p>Here are the available time slots for each doctor:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Doctor Name</th>
+                        <th>Available Time Slots</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in doctors_with_available_slots %}
+                        <tr>
+                            <td>{{ item.doctor.user }}</td>
+                            <td>
+                                {% if item.available_slots %}
+                                    <ul>
+                                        {% for slot in item.available_slots %}
+                                            <li>{{ slot.date }} - {{ slot.time_slot }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <span class="no-available">No available slots</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h1><a href="{% url 'dashboard' %}">Back to Dashboard</a></h1>
+</body>
+</html>

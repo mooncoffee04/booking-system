@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.name }}!</h1>
+    <h1><a href="{% url 'book_appointment' %}">Book an Appointment</a></h1>
+    <h3>Your Appointments</h3>
+    {% if user.patient.appointment_set.all %}
+        <ul>
+            {% for appointment in user.patient.appointment_set.all %}
+                <li>Appointment with Dr. {{ appointment.doctor.user.name }} on {{ appointment.date }} at {{ appointment.time_slot }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No appointments booked yet.</p>
+    {% endif %}
+    <h1><a href="{% url 'logout' %}">Logout</a></h1>
+</body>
+</html>
